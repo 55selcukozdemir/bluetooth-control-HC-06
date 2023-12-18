@@ -30,7 +30,7 @@ public class Comunication extends AppCompatActivity {
     BluetoothServerSocket mmServer;
 
     SeekBar seekBarThrottle, seekBarYaw, seekBarRoll, seekBarPitch;
-    TextView txtThrottle, txtYaw, txtRoll, txtPitch;
+    TextView txtThrottle, txtYaw, txtRoll, txtPitch, txtTotal;
     String Throttle, Yaw, Roll, Pitch;
 
     private boolean isBtConnected = false;
@@ -54,15 +54,22 @@ public class Comunication extends AppCompatActivity {
         txtRoll= (TextView) findViewById(R.id.txt_roll);
         txtThrottle = (TextView) findViewById(R.id.txt_throttle);
         txtYaw = (TextView) findViewById(R.id.txt_yaw);
+        txtTotal = (TextView) findViewById(R.id.txt_total);
+
+        Throttle = "30";
+        Yaw = "30";
+        Roll = "30";
+        Pitch = "30";
 
         seekBarThrottle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 if(btSocket != null){
                     try {
-                        Throttle = progress +"";
-                        btSocket.getOutputStream().write((Throttle +"|" + Yaw + "|" + Roll + "|" + Pitch + "a").getBytes());
+                        Throttle = (progress + 500) +"";
+                        btSocket.getOutputStream().write((Throttle + " ").getBytes());
                         txtThrottle.setText("Throttle: "+Throttle);
+                        txtTotal.setText(Throttle +"|" + Yaw + "|" + Roll + "|" + Pitch + "a");
                     }
                     catch (Exception e)
                     {
@@ -89,9 +96,10 @@ public class Comunication extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 if(btSocket != null){
                     try {
-                        Yaw = progress +"";
-                        btSocket.getOutputStream().write((Throttle +"|" + Yaw + "|" + Roll + "|" + Pitch + "a").getBytes());
+                        Yaw = (progress + 1500) +"";
+                        btSocket.getOutputStream().write((Yaw + " ").getBytes());
                         txtYaw.setText("Yaw: "+Yaw);
+                        txtTotal.setText(Throttle +"|" + Yaw + "|" + Roll + "|" + Pitch + "a");
                     }
                     catch (Exception e)
                     {
@@ -119,9 +127,10 @@ public class Comunication extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 if(btSocket != null){
                     try {
-                        Roll = progress +"";
-                        btSocket.getOutputStream().write((Throttle +"|" + Yaw + "|" + Roll + "|" + Pitch + "a").getBytes());
+                        Roll = (2500+progress) +"";
+                        btSocket.getOutputStream().write((Roll + " ").getBytes());
                         txtRoll.setText("Roll: "+Roll);
+                        txtTotal.setText(Throttle +"|" + Yaw + "|" + Roll + "|" + Pitch + "a");
                     }
                     catch (Exception e)
                     {
@@ -149,9 +158,10 @@ public class Comunication extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 if(btSocket != null){
                     try {
-                        Pitch = progress +"";
-                        btSocket.getOutputStream().write((Throttle +"|" + Yaw + "|" + Roll + "|" + Pitch + "a").getBytes());
+                        Pitch = (3500+progress) +"";
+                        btSocket.getOutputStream().write((Pitch + " ").getBytes());
                         txtPitch.setText("Pitch: "+Pitch);
+                        txtTotal.setText(Throttle +"|" + Yaw + "|" + Roll + "|" + Pitch + "a");
                     }
                     catch (Exception e)
                     {
